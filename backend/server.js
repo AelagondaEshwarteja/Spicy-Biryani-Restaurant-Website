@@ -21,10 +21,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ---------- Middleware ----------
-// Only allow our own frontend to call this API from the browser
-const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
-  .split(',')
-  .map((url) => url.trim());
+// Websites that are allowed to call this API from the browser (CORS).
+// Our local and live frontends are always allowed. CLIENT_URL can add more,
+// separated by commas. A "/" at the end is removed because browsers never send one.
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://spicy-biryani-restaurant-website.vercel.app',
+  ...(process.env.CLIENT_URL || '').split(','),
+]
+  .map((url) => url.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
 
 app.use(cors({ origin: allowedOrigins }));
 

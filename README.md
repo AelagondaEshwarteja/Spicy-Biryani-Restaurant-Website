@@ -207,7 +207,7 @@ The password is stored as a **bcrypt hash** (never the real password). After a c
 - **Database:** MongoDB Atlas (free tier)
 - **Backend:** Render / Railway – set the same variables as in `.env`, and set `CLIENT_URL` to your frontend URL
 - **Frontend:** Vercel – Root Directory `frontend`, set `VITE_API_URL` to `https://<your-backend>/api`, build command `npm run build`, output folder `dist`. `frontend/vercel.json` sends every page (like `/admin`) to `index.html`, so React Router can handle it
-- After the frontend is live, set the backend's `CLIENT_URL` to the frontend address (for example `https://spicy-biryani.vercel.app`)
+- The live Vercel address and `http://localhost:5173` are already allowed in `backend/server.js`. If you host the frontend somewhere else, add that address to the backend's `CLIENT_URL`
 
 ---
 

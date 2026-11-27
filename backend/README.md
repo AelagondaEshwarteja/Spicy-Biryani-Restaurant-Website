@@ -22,7 +22,7 @@ npm run dev              # starts with nodemon (restarts when you save a file)
 |------|---------|----------------|
 | `PORT` | `5000` | Port the server runs on |
 | `NODE_ENV` | `development` | In `production` error stack traces are hidden |
-| `CLIENT_URL` | `http://localhost:5173` | Frontend address allowed by CORS (comma separated for more than one) |
+| `CLIENT_URL` | `https://my-other-site.com` | Extra frontend addresses allowed by CORS, comma separated. `http://localhost:5173` and the live Vercel site are always allowed (see `server.js`) |
 | `MONGO_URI` | `mongodb+srv://user:pass@cluster.mongodb.net/` | MongoDB connection string (local or Atlas) |
 | `DB_NAME` | `spicy_biryani` | Name of the database inside MongoDB (default `spicy_biryani`) |
 | `JWT_SECRET` | long random text | Used to sign login tokens. Keep it secret |
