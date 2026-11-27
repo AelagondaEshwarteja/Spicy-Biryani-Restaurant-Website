@@ -4,6 +4,18 @@ function notFound(req, res, next) {
   next(new Error(`Route not found: ${req.method} ${req.originalUrl}`));
 }
 
+// Some addresses only accept one method, e.g. PATCH to change an order's status.
+// Opening them in the browser sends GET, so instead of a confusing "Route not found"
+// we answer 405 (Method Not Allowed) and explain how to use them.
+function onlyAllow(method, hint) {
+  return (req, res) => {
+    res.set('Allow', method);
+    res.status(405).json({
+      message: `This address only accepts ${method} requests, so it can't be opened in the browser. ${hint}`,
+    });
+  };
+}
+
 // One place that turns every error into a clean JSON response.
 // Controllers just call next(error) and this function does the rest.
 function errorHandler(err, req, res, next) {
@@ -47,4 +59,4 @@ function errorHandler(err, req, res, next) {
   });
 }
 
-module.exports = { notFound, errorHandler };
+module.exports = { notFound, errorHandler, onlyAllow };

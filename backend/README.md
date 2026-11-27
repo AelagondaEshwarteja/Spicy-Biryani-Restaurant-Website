@@ -80,6 +80,10 @@ If anything fails, the controller calls `next(error)` and `errorMiddleware.js` s
 All responses are JSON. Errors always look like `{ "message": "what went wrong" }`.
 Admin routes need the header `Authorization: Bearer <token>`.
 
+> **Tip:** opening an address in the browser always sends **GET**. Addresses that change data
+> (like `PATCH /api/orders/:id/status` or `POST /api/auth/login`) answer **405** with a short
+> explanation instead of "Route not found". Use the admin dashboard buttons or Postman with the right method.
+
 ### Menu
 
 **`GET /api/menu`** – optional query: `category=biryani`, `veg=true`, `search=chicken`
