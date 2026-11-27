@@ -41,7 +41,7 @@ export default function OrdersPanel({ stats, onChange, onError }: OrdersPanelPro
       if (showSpinner) setLoading(true);
       try {
         const data = await orderApi.getAll(filter);
-        setOrders(data.orders);
+        setOrders(data.orders ?? []);
         setError('');
       } catch (err) {
         setError(onError(err));

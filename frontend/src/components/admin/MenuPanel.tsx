@@ -16,7 +16,7 @@ export default function MenuPanel({ onError }: { onError: (err: unknown) => stri
   useEffect(() => {
     menuApi
       .getAllFresh()
-      .then((data) => setItems(data.items))
+      .then((data) => setItems(data.items ?? []))
       .catch((err) => setError(onError(err)))
       .finally(() => setLoading(false));
   }, [onError]);

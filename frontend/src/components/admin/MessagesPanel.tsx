@@ -17,7 +17,7 @@ export default function MessagesPanel({ onChange, onError }: MessagesPanelProps)
   const loadMessages = useCallback(() => {
     messageApi
       .getAll()
-      .then((data) => setMessages(data.messages))
+      .then((data) => setMessages(data.messages ?? []))
       .catch((err) => setError(onError(err)))
       .finally(() => setLoading(false));
   }, [onError]);

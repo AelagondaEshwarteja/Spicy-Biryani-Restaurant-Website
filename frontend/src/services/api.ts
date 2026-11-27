@@ -55,7 +55,14 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     throw new ApiError('Cannot reach the server. Please check your connection and try again.', 0);
   }
 
-  const data = await response.json().catch(() => ({}));
+  // Our backend always answers with JSON. If something else comes back (for example an
+  // HTML page because the API address is wrong), show a clear error instead of crashing.
+  const isJson = (response.headers.get('content-type') || '').includes('application/json');
+  const data = isJson ? await response.json().catch(() => null) : null;
+
+  if (!data) {
+    throw new ApiError('Could not get a proper answer from the server. Please try again later.', response.status);
+  }
 
   if (!response.ok) {
     throw new ApiError(data.message || 'Something went wrong. Please try again.', response.status);

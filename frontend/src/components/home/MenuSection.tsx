@@ -21,7 +21,7 @@ export default function MenuSection() {
     setError('');
     try {
       const data = await menuApi.getAll();
-      setItems(data.items);
+      setItems(data.items ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not load the menu');
     } finally {
